@@ -1,0 +1,33 @@
+[build]
+  publish = "dist"
+  command = "echo 'API only'"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/markets"
+  to = "/.netlify/functions/markets"
+  status = 200
+
+[[redirects]]
+  from = "/api/weather"
+  to = "/.netlify/functions/weather"
+  status = 200
+
+[[redirects]]
+  from = "/api/exchange"
+  to = "/.netlify/functions/exchange"
+  status = 200
+
+[[redirects]]
+  from = "/api/directions"
+  to = "/.netlify/functions/directions"
+  status = 200
+
+# Block everything else — no website content
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
