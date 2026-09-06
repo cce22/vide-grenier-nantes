@@ -237,7 +237,7 @@ export default function App() {
     if (cachedExchange) setExchangeRates(JSON.parse(cachedExchange));
 
     // 2. Fetch fresh data and update cache
-    fetch("/api/markets")
+    fetch("https://dainty-biscotti-8314c0.netlify.app/api/markets")
       .then(res => res.json())
       .then(data => {
         if (data && data.events && data.events.length > 0) {
@@ -248,12 +248,12 @@ export default function App() {
       .catch(err => console.error("Offline or API error:", err))
       .finally(() => setIsLoading(false));
 
-     fetch("/api/weather").then(res => res.json()).then(data => {
+     fetch("https://dainty-biscotti-8314c0.netlify.app/api/weather").then(res => res.json()).then(data => {
         localStorage.setItem('cached_weather', JSON.stringify(data.temp));
         setWeatherTemp(data.temp);
      }).catch(err => console.error(err));
      
-     fetch("/api/exchange").then(res => res.json()).then(data => {
+     fetch("https://dainty-biscotti-8314c0.netlify.app/api/exchange").then(res => res.json()).then(data => {
         localStorage.setItem('cached_exchange', JSON.stringify(data));
         setExchangeRates(data);
      }).catch(err => console.error(err));
@@ -317,7 +317,7 @@ export default function App() {
     }
 
     try {
-      const resp = await fetch('/api/directions', {
+      const resp = await fetch('https://dainty-biscotti-8314c0.netlify.app/api/directions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

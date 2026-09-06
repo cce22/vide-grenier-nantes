@@ -1,8 +1,18 @@
 import axios from "axios";
 
 export default async (req: Request) => {
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS"
+  };
+
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
   if (req.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), { status: 405 });
+    return new Response(JSON.stringify({ error: "Method not allowed" }), { status: 405, headers: corsHeaders });
   }
 
   try {
@@ -108,12 +118,12 @@ export default async (req: Request) => {
       totalDuration: `${totalDuration} دقيقة`,
       steps
     }), {
-      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+      headers: { "Content-Type": "application/json", ...corsHeaders }
     });
   } catch (error: any) {
     return new Response(JSON.stringify({ error: "Failed to calculate transit directions" }), {
       status: 500,
-      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+      headers: { "Content-Type": "application/json", ...corsHeaders }
     });
   }
 };
