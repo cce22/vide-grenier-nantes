@@ -1,6 +1,6 @@
 [build]
   publish = "dist"
-  command = "echo 'API only'"
+  command = "npm install && mkdir -p dist && echo '<!DOCTYPE html><html><head><title>404</title></head><body></body></html>' > dist/index.html"
 
 [functions]
   directory = "netlify/functions"
